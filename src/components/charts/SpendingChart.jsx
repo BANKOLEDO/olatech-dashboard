@@ -35,7 +35,6 @@ export default function SpendingChart() {
 
   // Update trend when timeframe changes
   useEffect(() => {
-    // For demo purposes, trend = difference from previous period
     let previous;
     switch (timeframe) {
       case "month":
@@ -56,26 +55,32 @@ export default function SpendingChart() {
     setTrendValue(`${Math.abs(((diff / previousTotal) * 100).toFixed(1))}%`);
   }, [timeframe, totalSpending]);
 
+  // New blue palette
+  const COLORS = {
+    rent: "#2563eb",       // first blue
+    food: "#60a5fa",       // second blue
+    misc: "#bfdbfe",       // third blue
+  };
+
   return (
-    <Card className="w-full p-6">
-      <CardHeader className="flex flex-row items-center justify-between">
+    <Card className="w-full h-[19.5rem] sm:h-[18rem] p-1">
+      <CardHeader className="flex flex-col sm:flex-row items-start justify-between">
         <div>
-          <CardTitle className="text-lg font-bold">Spending Overview</CardTitle>
-          <CardDescription className="text-2xl font-semibold">
+          <CardTitle className="text-[1.3rem] font-bold mt-1">Spending Overview</CardTitle>
+          <CardDescription className="text-xl mt-2 flex items-center gap-3 font-bold text-black">
             ${totalSpending.toLocaleString()}
             <span
-              className={`ml-2 w-10 text-sm flex items-center ${
-                trendDown ? "text-red-500" : "text-green-500"
+              className={`m-2 w-16 p-1 text-sm flex items-center border rounded-sm ${
+                trendDown ? "text-red-600 bg-red-300" : "text-green-600 bg-green-300"
               }`}
             >
-              {trendDown ? <ArrowDown className="h-4 w-4" /> : <ArrowUp className="h-4 w-4" />}
               {trendValue}
+              {trendDown ? <ArrowDown className="h-4 w-4" /> : <ArrowUp className="h-4 w-4" />}
             </span>
           </CardDescription>
         </div>
-
-        <Select value={timeframe} onValueChange={(value) => setTimeframe(value)}>
-          <SelectTrigger className="w-[150px]">
+        <Select value={timeframe} onValueChange={setTimeframe}>
+          <SelectTrigger className="w-[150px] h-[1.5rem]">
             <SelectValue placeholder="Select timeframe" />
           </SelectTrigger>
           <SelectContent>
@@ -90,18 +95,12 @@ export default function SpendingChart() {
       <CardContent className="flex flex-col space-y-4">
         {/* Labels with colored boxes */}
         <div className="flex justify-between w-full text-sm font-medium">
-          <div className="flex items-center space-x-2">
-            <div className="w-4 h-4 bg-[#f97316] rounded-sm"></div>
-            <span>Rent</span>
-          </div>
-          <div className="flex items-center space-x-2">
-            <div className="w-4 h-4 bg-[#22c55e] rounded-sm"></div>
-            <span>Food</span>
-          </div>
-          <div className="flex items-center space-x-2">
-            <div className="w-4 h-4 bg-[#6366f1] rounded-sm"></div>
-            <span>Misc</span>
-          </div>
+          {Object.keys(COLORS).map((source) => (
+            <div key={source} className="flex items-center space-x-2">
+              <div className="w-4 h-4 rounded-sm" style={{ backgroundColor: COLORS[source] }} />
+              <span>{source.charAt(0).toUpperCase() + source.slice(1)}</span>
+            </div>
+          ))}
         </div>
 
         {/* Amounts */}
@@ -113,30 +112,16 @@ export default function SpendingChart() {
 
         {/* Horizontal Spending Breakdown */}
         <div className="w-full bg-gray-200 h-12 rounded-lg overflow-hidden flex">
-          {/* Rent */}
-          <div
-            className="h-full"
-            style={{
-              width: `${(current.rent / totalSpending) * 100}%`,
-              backgroundColor: "#f97316",
-            }}
-          />
-          {/* Food */}
-          <div
-            className="h-full"
-            style={{
-              width: `${(current.food / totalSpending) * 100}%`,
-              backgroundColor: "#22c55e",
-            }}
-          />
-          {/* Misc */}
-          <div
-            className="h-full"
-            style={{
-              width: `${(current.misc / totalSpending) * 100}%`,
-              backgroundColor: "#6366f1",
-            }}
-          />
+          {Object.keys(current).map((source) => (
+            <div
+              key={source}
+              className="h-full"
+              style={{
+                width: `${(current[source] / totalSpending) * 100}%`,
+                backgroundColor: COLORS[source],
+              }}
+            />
+          ))}
         </div>
       </CardContent>
     </Card>

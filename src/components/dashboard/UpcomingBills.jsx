@@ -10,7 +10,7 @@ const upcomingBills = [
     name: "Netflix Subscription",
     date: "June 28, 2025",
     amount: 15.99,
-    icon: "netflix",
+    icon: "/icons/icons8-netflix.svg",
     status: "Scheduled"
   },
   {
@@ -18,7 +18,7 @@ const upcomingBills = [
     name: "Spotify Premium",
     date: "June 30, 2025", 
     amount: 9.99,
-    icon: "spotify",
+    icon: "/icons/icons8-spotify-logo-94.png",
     status: "Scheduled"
   },
   {
@@ -26,7 +26,7 @@ const upcomingBills = [
     name: "Adobe Creative Cloud",
     date: "July 4, 2025",
     amount: 52.99,
-    icon: "adobe",
+    icon: "/icons/icons8-adobe-creative-cloud.svg",
     status: "Scheduled"
   }
 ];
@@ -52,7 +52,7 @@ export default function UpcomingBills() {
               <div className="flex items-center space-x-4">
                 <div className="w-8 h-8">
                   <img 
-                    src={`/${bill.icon}.svg`}
+                    src={bill.icon}
                     alt={bill.name}
                     className="w-full h-full object-contain"
                   />

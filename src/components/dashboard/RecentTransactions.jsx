@@ -12,7 +12,7 @@ const recentTransactions = [
     date: "Wed 10:29 AM",
     amount: 25.00,
     status: "Success",
-    icon: "app-store"
+    icon: "/icons/icons8-app-store.svg"
   },
   {
     id: 2,
@@ -20,7 +20,7 @@ const recentTransactions = [
     date: "Wed 10:29 AM",
     amount: 25.00,
     status: "Success",
-    icon: "adobe"
+    icon: "/icons/icons8-adobe.svg"
   }
 ];
 
@@ -43,7 +43,7 @@ export default function RecentTransactions() {
               <div className="flex items-center space-x-4">
                 <div className="w-8 h-8">
                   <img
-                    src={`/${transaction.icon}.svg`} 
+                    src={transaction.icon} 
                     alt={transaction.name}
                     className="w-full h-full object-contain"
                   />

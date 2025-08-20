@@ -92,7 +92,7 @@ export default function SidebarContent({ onNavigate }) {
         </div>
 
         {/* Starter Plan card */}
-        <div className="mt-4 mb-6 p-4 rounded-xl bg-orange-50 border border-orange-200">
+        <div className="mt-16 mb-2 p-4 rounded-xl bg-orange-50 border border-orange-200">
           <h4 className="font-semibold text-sm">Starter Plan</h4>
           <p className="text-xs text-gray-600 mt-1">
             Upgrade to the enterprise plan & get attractive discounts

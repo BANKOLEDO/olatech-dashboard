@@ -80,15 +80,15 @@ export default function WalletsPage() {
             </Button>
           </CardHeader>
           <CardContent>
-            <p className="text-lg font-semibold">Total Balance: {totalBankBalance}</p>
+            <p className="text-lg font-semibold">Balance: {totalBankBalance}</p>
 
             {showBanks && (
               <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="mt-4 space-y-3">
                 {commercialBanks.map((bank) => (
-                  <div key={bank.id} className="flex justify-between p-3 rounded-lg bg-gray-50 dark:bg-gray-800">
+                  <motion.div key={bank.id} whileHover={{ scale: 1.03 }} className="flex justify-between p-3 rounded-lg bg-gray-50 dark:bg-gray-800">
                     <p className="font-medium">{bank.name}</p>
                     <p className="font-semibold">{bank.balance.toLocaleString("en-US", { style: "currency", currency: "USD" })}</p>
-                  </div>
+                  </motion.div>
                 ))}
               </motion.div>
             )}
@@ -175,7 +175,7 @@ export default function WalletsPage() {
             {showInvestments && (
               <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="mt-4 space-y-3">
                 {investments.map((inv) => (
-                  <div key={inv.id} className="flex justify-between p-3 rounded-lg bg-gray-50 dark:bg-gray-800">
+                  <motion.div key={inv.id} whileHover={{ scale: 1.03 }} className="flex justify-between p-3 rounded-lg bg-gray-50 dark:bg-gray-800">
                     <div>
                       <p className="font-medium">{inv.name}</p>
                       <p className={`text-xs ${inv.change.startsWith("+") ? "text-green-600" : "text-red-500"}`}>
@@ -183,7 +183,7 @@ export default function WalletsPage() {
                       </p>
                     </div>
                     <p className="font-semibold">{inv.amount}</p>
-                  </div>
+                  </motion.div>
                 ))}
               </motion.div>
             )}

@@ -16,17 +16,22 @@ import { useState } from "react";
 
 export default function WalletsPage() {
   const [showCrypto, setShowCrypto] = useState(false);
-  const [showBankTxns, setShowBankTxns] = useState(false);
+  const [showBanks, setShowBanks] = useState(false);
   const [showManage, setShowManage] = useState(false);
   const [showInvestments, setShowInvestments] = useState(false);
 
-  const initialBankBalance = 50000; // starting balance
-  const bankTransactions = [
-    { id: 1, name: "Grocery Store", amount: "-$55.20", date: "Aug 12, 2025" },
-    { id: 2, name: "Salary Deposit", amount: "+$3,800.00", date: "Aug 10, 2025" },
-    { id: 3, name: "Netflix", amount: "-$15.99", date: "Aug 08, 2025" },
-    { id: 4, name: "ATM Withdrawal", amount: "-$900.00", date: "Aug 05, 2025" },
+  // American Commercial Banks
+  const commercialBanks = [
+    { id: 1, name: "Bank of America", balance: 85000 },
+    { id: 2, name: "JPMorgan Chase", balance: 72000 },
+    { id: 3, name: "Wells Fargo", balance: 64000 },
+    { id: 4, name: "Citibank", balance: 53000 },
+    { id: 5, name: "Goldman Sachs", balance: 91000 },
   ];
+
+  const totalBankBalance = commercialBanks
+    .reduce((acc, bank) => acc + bank.balance, 0)
+    .toLocaleString("en-US", { style: "currency", currency: "USD" });
 
   const cryptoCoins = [
     { name: "Bitcoin", symbol: "BTC", balance: "0.35", usd: 39844.35, icon: <Bitcoin className="w-5 h-5 text-yellow-500" /> },
@@ -44,13 +49,6 @@ export default function WalletsPage() {
     { id: 2, name: "S&P 500 ETF", amount: "$8,200.00", change: "-0.5%" },
     { id: 3, name: "Polygon Staking", amount: "$2,900.00", change: "+3.8%" },
   ];
-
-  const totalBankBalance = bankTransactions
-    .reduce((acc, txn) => {
-      const amount = parseFloat(txn.amount.replace(/[$,]/g, "")); // keep negative sign
-      return acc + amount; // sum signed numbers directly
-    }, initialBankBalance)
-    .toLocaleString("en-US", { style: "currency", currency: "USD" });
 
   const totalCryptoBalance = cryptoCoins
     .reduce((acc, coin) => acc + coin.usd, 0)
@@ -74,27 +72,22 @@ export default function WalletsPage() {
         <Card className="rounded-2xl shadow-md hover:shadow-xl transition">
           <CardHeader className="flex items-center justify-between">
             <CardTitle className="flex items-center gap-2">
-              <Wallet className="text-blue-600" /> Commercial Bank
+              <Wallet className="text-blue-600" /> Commercial Banks
             </CardTitle>
-            <Button variant="ghost" size="sm" onClick={() => setShowBankTxns(!showBankTxns)}>
-              {showBankTxns ? "Hide Transactions" : "View Transactions"}
-              {showBankTxns ? <ChevronUp /> : <ChevronDown />}
+            <Button variant="ghost" size="sm" onClick={() => setShowBanks(!showBanks)}>
+              {showBanks ? "Hide Banks" : "View Banks"}
+              {showBanks ? <ChevronUp /> : <ChevronDown />}
             </Button>
           </CardHeader>
           <CardContent>
-            <p className="text-lg font-semibold">Balance: {totalBankBalance}</p>
+            <p className="text-lg font-semibold">Total Balance: {totalBankBalance}</p>
 
-            {showBankTxns && (
+            {showBanks && (
               <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="mt-4 space-y-3">
-                {bankTransactions.map((txn) => (
-                  <div key={txn.id} className="flex justify-between p-3 rounded-lg bg-gray-50 dark:bg-gray-800">
-                    <div>
-                      <p className="font-medium">{txn.name}</p>
-                      <p className="text-xs text-muted-foreground">{txn.date}</p>
-                    </div>
-                    <p className={`font-semibold ${txn.amount.startsWith("-") ? "text-red-500" : "text-green-600"}`}>
-                      {txn.amount}
-                    </p>
+                {commercialBanks.map((bank) => (
+                  <div key={bank.id} className="flex justify-between p-3 rounded-lg bg-gray-50 dark:bg-gray-800">
+                    <p className="font-medium">{bank.name}</p>
+                    <p className="font-semibold">{bank.balance.toLocaleString("en-US", { style: "currency", currency: "USD" })}</p>
                   </div>
                 ))}
               </motion.div>

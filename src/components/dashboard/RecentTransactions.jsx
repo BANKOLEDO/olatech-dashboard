@@ -71,7 +71,7 @@ const recentTransactions = [
 
 export default function RecentTransactions() {
   const [showFilters, setShowFilters] = useState(false);
-  const [typeFilter, setTypeFilter] = useState("all"); // no TS types
+  const [typeFilter, setTypeFilter] = useState("all"); 
   const [statusFilter, setStatusFilter] = useState("all");
 
   const filteredTransactions = useMemo(() => {
@@ -86,7 +86,7 @@ export default function RecentTransactions() {
     <Card>
       <CardHeader className="flex flex-col gap-3 space-y-0 pb-2">
         <div className="flex flex-row items-center justify-between">
-          <CardTitle className="text-sm font-medium">Recent Transactions</CardTitle>
+          <CardTitle className="text-[1.3rem] font-bold mt-1">Recent Transactions</CardTitle>
           <Button variant="ghost" size="sm" onClick={() => setShowFilters((s) => !s)}>
             Filter
           </Button>

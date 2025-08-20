@@ -32,7 +32,9 @@ function Section({ title, items, onClick }) {
   const pathname = usePathname();
   return (
     <div className="mt-6">
-      <p className="text-sm font-semibold uppercase tracking-wide text-gray-400 mb-2 px-4">{title}</p>
+      <p className="text-sm font-semibold uppercase tracking-wide text-gray-400 mb-2 px-4">
+        {title}
+      </p>
       <div className="flex flex-col gap-1">
         {items.map(({ name, href, icon: Icon }) => {
           const active = pathname === href;
@@ -57,42 +59,48 @@ function Section({ title, items, onClick }) {
 
 export default function SidebarContent({ onNavigate }) {
   return (
-    <div className="flex flex-col h-full">
+    <div
+      className="flex flex-col h-full max-h-screen overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100"
+      tabIndex={0} // <-- fixes keyboard arrow scrolling
+    >
       {/* Logo */}
-      <div className="flex items-center gap-2 px-4 py-[0.61rem] border-b border-gray-200">
+      <div className="flex items-center gap-2 px-4 py-[0.61rem] border-b border-gray-200 flex-shrink-0">
         <div className="h-10 w-10 rounded-full bg-brand text-white font-bold grid place-items-center">F</div>
         <span className="font-bold text-lg">OLATECH</span>
       </div>
 
       {/* Search */}
-      <div className="p-4">
+      <div className="p-4 flex-shrink-0">
         <div className="relative">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
           <Input placeholder="Search..." className="pl-9 text-sm rounded-lg" />
         </div>
       </div>
 
-      <Section title="Main Menu" items={mainMenu} onClick={onNavigate} />
-      <Section title="Features" items={features} onClick={onNavigate} />
-      <Section title="Control" items={controls} onClick={onNavigate} />
+      {/* Menu + Logout + Starter Plan */}
+      <div className="px-2">
+        <Section title="Main Menu" items={mainMenu} onClick={onNavigate} />
+        <Section title="Features" items={features} onClick={onNavigate} />
+        <Section title="Control" items={controls} onClick={onNavigate} />
 
-      {/* Logout */}
-      <div className="mt-2 px-2">
-        <button className="flex items-center gap-3 text-sm text-red-500 hover:bg-red-50 w-full rounded-lg px-4 py-2">
-          <LogOut className="h-5 w-5" />
-          Log Out
-        </button>
-      </div>
+        {/* Logout */}
+        <div className="mt-2 px-2">
+          <button className="flex items-center gap-3 text-sm text-red-500 hover:bg-red-50 w-full rounded-lg px-4 py-2">
+            <LogOut className="h-5 w-5" />
+            Log Out
+          </button>
+        </div>
 
-      {/* Starter Plan card */}
-      <div className="mt-auto mb-6 mx-4 p-4 rounded-xl bg-orange-50 border border-orange-200">
-        <h4 className="font-semibold text-sm">Starter Plan</h4>
-        <p className="text-xs text-gray-600 mt-1">
-          Upgrade to the enterprise plan & get attractive discounts
-        </p>
-        <Button className="mt-3 w-full bg-orange-500 hover:bg-orange-600 text-white rounded-lg">
-          Upgrade Now
-        </Button>
+        {/* Starter Plan card */}
+        <div className="mt-4 mb-6 p-4 rounded-xl bg-orange-50 border border-orange-200">
+          <h4 className="font-semibold text-sm">Starter Plan</h4>
+          <p className="text-xs text-gray-600 mt-1">
+            Upgrade to the enterprise plan & get attractive discounts
+          </p>
+          <Button className="mt-3 w-full bg-orange-500 hover:bg-orange-600 text-white rounded-lg">
+            Upgrade Now
+          </Button>
+        </div>
       </div>
     </div>
   );

@@ -12,7 +12,6 @@ import { Button } from "@/components/ui/button";
 const mainMenu = [
   { name: "Dashboard", href: "/", icon: LayoutDashboard },
   { name: "Wallets", href: "/wallets", icon: Wallet },
-  { name: "Analytics", href: "/analytics", icon: BarChart3 },
   { name: "Transactions", href: "/transactions", icon: FileText },
   { name: "Invoices", href: "/invoices", icon: Receipt },
 ];

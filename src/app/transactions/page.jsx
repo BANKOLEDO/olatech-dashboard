@@ -121,7 +121,7 @@ export default function TransactionsPage() {
   return (
     <Card className="w-full shadow-lg rounded-2xl">
       <CardHeader className="flex flex-col gap-3 space-y-0 pb-2">
-        <div className="flex flex-row items-center justify-between">
+        <div className="flex flex-row items-start justify-between">
           <CardTitle className="text-[1.3rem] font-bold mt-1">
             Transactions
           </CardTitle>
@@ -129,7 +129,7 @@ export default function TransactionsPage() {
           <motion.div
             initial={{ opacity: 0, y: -5 }}
             animate={{ opacity: 1, y: 0 }}
-            className="flex items-center gap-2"
+            className="grid grid-cols-2 md:grid-cols-3 gap-2"
           >
             <Select value={typeFilter} onValueChange={(v) => setTypeFilter(v)}>
               <SelectTrigger className="w-[120px] h-8 text-xs">

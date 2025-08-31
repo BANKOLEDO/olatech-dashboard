@@ -65,7 +65,7 @@ export default function WalletsPage() {
 
   return (
     <div className="p-6 space-y-6 max-w-4xl mx-auto">
-      <h1 className="text-2xl font-bold">Wallets</h1>
+      <h1 className="text-2xl text-center font-bold">Wallets</h1>
 
       {/* Commercial Bank Wallet */}
       <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }}>

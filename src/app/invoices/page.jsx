@@ -92,6 +92,7 @@ export default function Invoices() {
     doc.text(`Amount: $${tx.amount}`, 20, 70);
     doc.text(`Status: ${tx.status}`, 20, 80);
 
+    doc.text("Thank you for your business!", 20, 100);
     doc.save(`invoice-${tx.id}.pdf`);
   };
 

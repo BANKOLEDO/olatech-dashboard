@@ -81,8 +81,8 @@ export default function Subscriptions() {
 
   return (
     <div className="p-6 space-y-6">
-      <div className="flex items-center justify-between">
-        <h1 className="text-3xl font-bold flex items-center gap-2">
+      <div className="flex flex-col items-start gap-2 md:flex-row md:items-center justify-between">
+        <h1 className="text-xl md:text-2xl font-bold flex items-center gap-2">
           Subscriptions
         </h1>
 
@@ -123,7 +123,7 @@ export default function Subscriptions() {
       </div>
 
       {/* Subscription Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
         {subscriptions.map((sub) => (
           <motion.div
             key={sub.id}

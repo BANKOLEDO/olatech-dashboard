@@ -97,8 +97,8 @@ export default function Invoices() {
   };
 
   return (
-    <div className="p-6 space-y-6">
-      <h1 className="text-2xl text-center font-bold">Invoices</h1>
+    <div className="p-4 space-y-6">
+      <h1 className="text-xl md:text-2xl text-center font-bold">Invoices</h1>
 
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
         {invoiceTransactions.map((transaction, index) => (
@@ -114,7 +114,7 @@ export default function Invoices() {
               ></div>
               <CardContent className="p-4 space-y-3">
                 <div className="flex justify-between items-center">
-                  <h2 className="font-semibold text-lg">{transaction.name}</h2>
+                  <h2 className="font-semibold text-md md:text-md">{transaction.name}</h2>
                   <span
                     className={`text-xs px-2 py-1 rounded-full ${
                       transaction.status === "Paid"

@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import {
   LayoutDashboard, Wallet, BarChart3, FileText, Receipt,
   RefreshCcw, CreditCard, MessageSquare, Settings, HelpCircle, LogOut, Search
@@ -57,10 +57,21 @@ function Section({ title, items, onClick }) {
 }
 
 export default function SidebarContent({ onNavigate }) {
+  const router = useRouter();
+
+  const handleLogout = () => {
+    // Simulate clearing authentication data
+    localStorage.removeItem("dummyToken");
+    localStorage.removeItem("userName");
+    localStorage.removeItem("userEmail");
+    // Redirect to login page
+    router.push("/login");
+  };
+
   return (
     <div
       className="flex flex-col h-full max-h-screen overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100"
-      tabIndex={0} // <-- fixes keyboard arrow scrolling
+      tabIndex={0}
     >
       {/* Logo */}
       <div className="flex items-center gap-2 px-4 py-[0.61rem] border-b border-gray-200 flex-shrink-0">
@@ -84,7 +95,10 @@ export default function SidebarContent({ onNavigate }) {
 
         {/* Logout */}
         <div className="mt-2 px-2">
-          <button className="flex items-center gap-3 text-sm text-red-500 hover:bg-red-50 w-full rounded-lg px-4 py-2">
+          <button
+            onClick={handleLogout}
+            className="flex items-center gap-3 text-sm text-red-500 hover:bg-red-50 w-full rounded-lg px-4 py-2"
+          >
             <LogOut className="h-5 w-5" />
             Log Out
           </button>

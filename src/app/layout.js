@@ -1,7 +1,6 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import Sidebar from "@/components/layout/Sidebar";
-import Topbar from "@/components/layout/Topbar";
+import ClientLayout from "@/components/layout/ClientLayout";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -13,31 +12,52 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-export const metadata = {
-  title: "Olatech Dashboard",
-  description: "Personal Finance Dashboard",
+// 🟢 Metadata per route
+const metaMap = {
+  "/": {
+    title: "Dashboard | Olatech",
+    description: "Your personal finance dashboard",
+  },
+  "/wallets": {
+    title: "Wallets | Olatech",
+    description: "Manage your wallets with ease",
+  },
+  "/transactions": {
+    title: "Transactions | Olatech",
+    description: "Track all your financial transactions",
+  },
+  "/invoices": {
+    title: "Invoices | Olatech",
+    description: "Create and manage invoices quickly",
+  },
+  "/recurring-payments": {
+    title: "Recurring Payments | Olatech",
+    description: "Automate and track recurring bills",
+  },
+  "/subscriptions": {
+    title: "Subscriptions | Olatech",
+    description: "Stay on top of your active subscriptions",
+  },
+  "/login": {
+    title: "Login | Olatech",
+    description: "Access your dashboard securely",
+  },
 };
+
+export async function generateMetadata({ params }) {
+  // Can't access pathname directly here, but you can fallback
+  // Next.js matches based on segment name
+  return metaMap[`/${params?.slug || ""}`] || {
+    title: "Olatech Dashboard",
+    description: "Personal Finance Dashboard",
+  };
+}
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        <div className="flex h-screen">
-          {/* Sidebar for desktop */}
-          <aside className="hidden md:block">
-            <Sidebar />
-          </aside>
-
-          <div className="flex flex-col flex-1">
-            {/* Topbar for both mobile + desktop */}
-            <Topbar />
-
-            {/* Page content */}
-            <main className="flex-1 overflow-y-auto p-4">{children}</main>
-          </div>
-        </div>
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+        <ClientLayout>{children}</ClientLayout>
       </body>
     </html>
   );

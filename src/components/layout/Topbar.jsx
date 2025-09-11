@@ -10,6 +10,7 @@ import {
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 import SidebarContent from "./SidebarContent";
+import BellIcon from "@/components/layout/BellIcon"
 
 export default function Topbar({ user }) {
   const [open, setOpen] = useState(false);
@@ -92,7 +93,7 @@ export default function Topbar({ user }) {
       <div className="flex items-center justify-center md:justify-end gap-4">
         <a href="/help"><HelpCircle className="h-5 w-5 cursor-pointer hover:text-gray-700" /></a>
         <a href="/feedback"> <MessageSquare className="h-5 w-5 cursor-pointer hover:text-gray-700" /></a>
-        <Bell className="h-5 w-5 cursor-pointer hover:text-gray-700" />
+        <BellIcon />
 
         <DropdownMenu>
           <DropdownMenuTrigger className="flex items-center gap-2">
@@ -107,8 +108,7 @@ export default function Topbar({ user }) {
             <ChevronDown className="h-4 w-4" />
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
-            <DropdownMenuItem onClick={() => router.push("/login")}>Sign In</DropdownMenuItem>
-            <DropdownMenuItem onClick={handleLogout}>Log Out</DropdownMenuItem>
+            <DropdownMenuItem onClick={() => router.push("/login")}>Log Out</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       </div>

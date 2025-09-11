@@ -77,3 +77,10 @@
     @apply bg-background text-foreground;
   }
 }
+
+@layer components {
+  .form-card {
+    @apply w-full lg:w-[40rem] mx-auto shadow-xl rounded-2xl border border-black backdrop-blur-lg bg-white/70;
+  }
+}
+

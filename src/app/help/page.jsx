@@ -128,7 +128,7 @@ export default function HelpDesk() {
       </h1>
 
       {/* FAQ Section */}
-      <Card className="shadow-2xl rounded-2xl border border-gray-100 backdrop-blur-lg bg-white/70">
+      <Card className="w-full lg:w-[40rem] mx-auto shadow-2xl rounded-2xl border border-black backdrop-blur-lg bg-white/70">
         <CardContent className="p-8 md:p-12">
           <h2 className="text-lg font-semibold mb-4">Frequently Asked Questions</h2>
           <Accordion type="single" collapsible className="w-full">
@@ -141,14 +141,31 @@ export default function HelpDesk() {
           </Accordion>
         </CardContent>
       </Card>
+ 
+      <div className="w-full lg:w-[40rem] mx-auto mb-6 p-4 rounded-xl bg-indigo-50 border border-indigo-200">
+      <h1 className="text-lg font-semibold text-indigo-700">
+        Fill the form below!
+      </h1>
+      <p className="text-sm text-gray-600 mt-1">
+        Let us know what you need help with. All fields are required to
+        ensure we can reach out if needed.
+      </p>
+    </div>
 
       {/* Contact Form */}
-      <Card className="shadow-2xl rounded-2xl border border-gray-100 backdrop-blur-lg bg-white/70">
+      <Card className="form-card">
         <CardContent className="p-8 md:p-12">
           {!submitted ? (
             <form ref={formRef} onSubmit={handleSubmit} className="space-y-8">
               <div className="relative">
+                <label
+                htmlFor="subject"
+                className="block text-sm font-medium text-gray-700 mb-1"
+              >
+                Subject:
+              </label>
                 <Input
+                 id="subject"
                   type="text"
                   value={form.subject}
                   onChange={(e) => setForm({ ...form, subject: e.target.value })}
@@ -163,7 +180,14 @@ export default function HelpDesk() {
               </div>
 
               <div className="relative">
+                <label
+                htmlFor="message"
+                className="block text-sm font-medium text-gray-700 mb-1"
+              >
+                Message:
+              </label>
                 <textarea
+                  id="message"
                   value={form.message}
                   onChange={(e) => setForm({ ...form, message: e.target.value })}
                   className={`peer w-full rounded-xl border ${
@@ -179,7 +203,7 @@ export default function HelpDesk() {
 
               <Button
                 type="submit"
-                className="w-full flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-blue-500 to-blue-800 text-white shadow-xl py-4 text-lg font-semibold tracking-wide"
+                className="w-full flex items-center justify-center gap-2 rounded-xl bg-black text-white shadow-xl py-4 text-lg font-semibold tracking-wide"
               >
                 <SendHorizonal className="w-5 h-5" />
                 Send Message

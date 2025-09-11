@@ -7,7 +7,7 @@ import Topbar from "./Topbar";
 export default function ClientLayout({ children }) {
   const pathname = usePathname();
 
-  // ✅ Special layout for login page
+  //  Special layout for login page
   if (pathname === "/login") {
     return (
       <>
@@ -21,7 +21,7 @@ export default function ClientLayout({ children }) {
     );
   }
 
-  // ✅ Full layout for other pages
+  // Full layout for other pages
   return (
     <div className="flex h-screen">
       {/* Sidebar for desktop */}

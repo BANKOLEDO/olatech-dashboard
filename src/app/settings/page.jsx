@@ -55,7 +55,14 @@ export default function SettingsPage() {
       newErrors.email = "Enter a valid email";
     }
 
-    if (form.password && form.password !== form.confirmPassword) {
+    // Password validation
+    if (!form.password.trim()) {
+      newErrors.password = "Password is required";
+    } 
+
+    if (!form.confirmPassword.trim()) {
+      newErrors.confirmPassword = "Confirm Password is required";
+    } else if (form.password !== form.confirmPassword) {
       newErrors.confirmPassword = "Passwords do not match";
     }
 
@@ -131,14 +138,21 @@ export default function SettingsPage() {
       </h1>
 
       {/* Card */}
-      <Card className="shadow-2xl rounded-2xl border border-gray-100 backdrop-blur-lg bg-white/70">
+      <Card className="form-card">
         <CardContent className="p-8 md:p-12">
           {!saved ? (
             <form ref={formRef} onSubmit={handleSubmit} className="space-y-8">
               {/* Name + Email */}
               <div className="grid md:grid-cols-2 gap-6">
                 <div className="relative">
+                  <label
+                    htmlFor="name"
+                    className="block text-sm font-medium text-gray-700 mb-1"
+                  >
+                    Name:
+                  </label>
                   <Input
+                    id="name"
                     type="text"
                     value={form.name}
                     onChange={(e) => setForm({ ...form, name: e.target.value })}
@@ -153,7 +167,14 @@ export default function SettingsPage() {
                 </div>
 
                 <div className="relative">
+                  <label
+                    htmlFor="email"
+                    className="block text-sm font-medium text-gray-700 mb-1"
+                  >
+                    Email:
+                  </label>
                   <Input
+                    id="email"
                     type="email"
                     value={form.email}
                     onChange={(e) => setForm({ ...form, email: e.target.value })}
@@ -171,21 +192,36 @@ export default function SettingsPage() {
               {/* Password + Confirm Password */}
               <div className="grid md:grid-cols-2 gap-6">
                 <div className="relative">
+                  <label
+                    htmlFor="new-password"
+                    className="block text-sm font-medium text-gray-700 mb-1"
+                  >
+                    New Paasword:
+                  </label>
                   <Input
+                    id="new-password"
                     type="password"
                     value={form.password}
-                    onChange={(e) =>
-                      setForm({ ...form, password: e.target.value })
-                    }
+                    onChange={(e) => setForm({ ...form, password: e.target.value })}
                     className={`peer w-full rounded-xl border ${
                       errors.password ? "border-red-500" : "border-gray-300"
-                    } bg-white/70 px-4 py-5 focus:ring-2 focus:ring-indigo-400 outline-none shadow-sm`}
+                     } bg-white/70 px-4 py-5 focus:ring-2 focus:ring-indigo-400 outline-none shadow-sm`}
                     placeholder="New Password"
                   />
+                  {errors.password && (
+                    <p className="text-red-500 text-sm mt-1">{errors.password}</p>
+                  )}
                 </div>
 
                 <div className="relative">
+                  <label
+                    htmlFor="confirm-password"
+                    className="block text-sm font-medium text-gray-700 mb-1"
+                  >
+                    Confirm Paasword:
+                  </label>
                   <Input
+                    id="confirm-password"
                     type="password"
                     value={form.confirmPassword}
                     onChange={(e) =>
@@ -220,7 +256,7 @@ export default function SettingsPage() {
               {/* Save Button */}
               <Button
                 type="submit"
-                className="w-full flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-blue-500 to-blue-800 text-white shadow-xl py-4 text-lg font-semibold tracking-wide"
+                className="w-full flex items-center justify-center gap-2 rounded-xl bg-black text-white shadow-xl py-4 text-lg font-semibold tracking-wide"
               >
                 <Save className="w-5 h-5" />
                 Save Settings

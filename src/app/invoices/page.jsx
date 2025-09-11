@@ -155,7 +155,7 @@ export default function Invoices() {
                     </Button>
                     <Button
                       size="sm"
-                      className="flex items-center gap-1 bg-gradient-to-r from-indigo-500 to-purple-500 text-white"
+                      className="flex items-center gap-1 bg-black text-white"
                       onClick={() => handleDownload(transaction)}
                     >
                       <Download className="h-4 w-4" /> Download

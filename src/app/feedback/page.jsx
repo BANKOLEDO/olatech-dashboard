@@ -121,14 +121,21 @@ export default function Feedback() {
       </h1>
 
       {/* Card */}
-      <Card className="shadow-2xl rounded-2xl border border-gray-100 backdrop-blur-lg bg-white/70">
+      <Card className="form-card">
         <CardContent className="p-8 md:p-12">
           {!submitted ? (
             <form ref={formRef} onSubmit={handleSubmit} className="space-y-8">
               {/* Name + Email */}
               <div className="grid md:grid-cols-2 gap-6">
                 <div className="relative">
+                  <label
+                    htmlFor="name"
+                    className="block text-sm font-medium text-gray-700 mb-1"
+                  >
+                    Name:
+                  </label>
                   <input
+                    id="name"
                     type="text"
                     value={form.name}
                     onChange={(e) => setForm({ ...form, name: e.target.value })}
@@ -143,7 +150,14 @@ export default function Feedback() {
                 </div>
 
                 <div className="relative">
+                  <label
+                    htmlFor="email"
+                    className="block text-sm font-medium text-gray-700 mb-1"
+                  >
+                    Email:
+                  </label>
                   <input
+                    id="email"
                     type="email"
                     value={form.email}
                     onChange={(e) => setForm({ ...form, email: e.target.value })}
@@ -160,7 +174,14 @@ export default function Feedback() {
 
               {/* Feedback Textarea */}
               <div className="relative">
+                <label
+                    htmlFor="feedback"
+                    className="block text-sm font-medium text-gray-700 mb-1"
+                  >
+                    Feedback:
+                  </label>
                 <textarea
+                  id="feedback"
                   value={form.feedback}
                   onChange={(e) =>
                     setForm({ ...form, feedback: e.target.value })
@@ -182,7 +203,7 @@ export default function Feedback() {
               <Button
                 ref={btnRef}
                 type="submit"
-                className="w-full flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-blue-500 to-blue-800 text-white shadow-xl py-4 text-lg font-semibold tracking-wide"
+                className="w-full flex items-center justify-center gap-2 rounded-xl bg-black text-white shadow-xl py-4 text-lg font-semibold tracking-wide"
               >
                 <SendHorizonal className="w-5 h-5" />
                 Send Feedback

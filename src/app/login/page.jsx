@@ -97,7 +97,7 @@ export default function Login() {
       </div>
 
       {/* Card */}
-      <Card className="shadow-2xl rounded-2xl border border-gray-100 backdrop-blur-lg bg-white/70 w-full max-w-md">
+      <Card className="form-card">
         <CardContent className="p-8 md:p-12">
           <h1 className="text-xl md:text-2xl font-bold text-center  mb-6">
             Login to OLATECH Dashboard
@@ -106,7 +106,14 @@ export default function Login() {
           <form ref={formRef} onSubmit={handleSubmit} className="space-y-6">
             {/* Name */}
             <div className="relative">
+              <label
+                htmlFor="name"
+                className="block text-sm font-medium text-gray-700 mb-1"
+              >
+                Name:
+              </label>
               <Input
+                id="name"
                 type="text"
                 value={form.name}
                 onChange={(e) => setForm({ ...form, name: e.target.value })}
@@ -122,7 +129,14 @@ export default function Login() {
 
             {/* Email */}
             <div className="relative">
+              <label
+                htmlFor="email"
+                className="block text-sm font-medium text-gray-700 mb-1"
+              >
+                Email:
+              </label>
               <Input
+                id="email"
                 type="email"
                 value={form.email}
                 onChange={(e) => setForm({ ...form, email: e.target.value })}
@@ -138,7 +152,14 @@ export default function Login() {
 
             {/* Password */}
             <div className="relative">
+              <label
+                htmlFor="password"
+                className="block text-sm font-medium text-gray-700 mb-1"
+              >
+                Password:
+              </label>
               <Input
+                id="password"
                 type="password"
                 value={form.password}
                 onChange={(e) => setForm({ ...form, password: e.target.value })}
@@ -155,7 +176,7 @@ export default function Login() {
             {/* Submit Button */}
             <Button
               type="submit"
-              className="w-full flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-blue-500 to-blue-800 text-white shadow-xl py-4 text-lg font-semibold tracking-wide"
+              className="w-full flex items-center justify-center gap-2 rounded-xl bg-black text-white shadow-xl py-4 text-lg font-semibold tracking-wide"
             >
               <LogIn className="w-5 h-5" />
               Login

@@ -75,7 +75,6 @@ export default function SidebarContent({ onNavigate }) {
     >
       {/* Logo */}
       <div className="flex items-center gap-2 px-4 py-[0.61rem] border-b border-gray-200 flex-shrink-0">
-        <div className="h-10 w-10 rounded-full bg-brand text-white font-bold grid place-items-center">F</div>
         <span className="font-bold text-lg">OLATECH</span>
       </div>
 
@@ -111,7 +110,7 @@ export default function SidebarContent({ onNavigate }) {
             Upgrade to the enterprise plan & get attractive discounts
           </p>
           <Button className="mt-3 w-full bg-orange-500 hover:bg-orange-600 text-white rounded-lg">
-            Upgrade Now
+            <Link href="/pricing" onClick={onNavigate}>Upgrade Now</Link>
           </Button>
         </div>
       </div>

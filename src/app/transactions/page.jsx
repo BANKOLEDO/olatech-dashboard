@@ -12,6 +12,13 @@ import {
   SelectContent,
   SelectItem,
 } from "@/components/ui/select";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogFooter,
+} from "@/components/ui/dialog";
 
 const recentTransactions = [
   {
@@ -109,6 +116,7 @@ const recentTransactions = [
 export default function TransactionsPage() {
   const [typeFilter, setTypeFilter] = useState("all");
   const [statusFilter, setStatusFilter] = useState("all");
+   const [selectedTransaction, setSelectedTransaction] = useState(null); // Renamed for clarity
 
   const filteredTransactions = useMemo(() => {
     return recentTransactions.filter((t) => {
@@ -119,7 +127,7 @@ export default function TransactionsPage() {
   }, [typeFilter, statusFilter]);
 
   return (
-    <Card className="shadow-lg rounded-2xl">
+    <Card className="shadow-lg max-w-3xl mx-auto rounded-2xl">
       <CardHeader>
         <div className="p-3 flex flex-col md:flex-row gap-2 items-center justify-evenly">
           <CardTitle className="text-xl font-bold">
@@ -192,7 +200,6 @@ export default function TransactionsPage() {
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -10 }}
-                  whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                   transition={{ duration: 0.2 }}
                   className="flex items-center justify-between space-x-4 rounded-lg p-2 hover:bg-muted/40 cursor-pointer"
@@ -243,7 +250,10 @@ export default function TransactionsPage() {
                         {transaction.status}
                       </div>
                     </div>
-                    <ChevronRight className="h-4 w-4 text-muted-foreground" />
+                    <ChevronRight
+                      className="h-4 w-4 text-muted-foreground cursor-pointer"
+                      onClick={() => setSelectedTransaction(transaction)}
+                    />
                   </div>
                 </motion.div>
               ))}
@@ -251,6 +261,84 @@ export default function TransactionsPage() {
           )}
         </AnimatePresence>
       </CardContent>
+      {/* Transaction Details Modal */}
+      <Dialog open={selectedTransaction !== null} onOpenChange={(open) => setSelectedTransaction(open ? selectedTransaction : null)}>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle>Transaction Details</DialogTitle>
+          </DialogHeader>
+
+          <div className="grid gap-4 py-2">
+            <div className="flex items-start gap-3">
+              <div className="w-10 h-10">
+                <img
+                  src={selectedTransaction?.icon}
+                  alt={selectedTransaction?.name}
+                  className="w-full h-full object-contain"
+                />
+              </div>
+              <div>
+                <h3 className="text-lg font-semibold text-gray-800">{selectedTransaction?.name}</h3>
+                <p className="text-sm text-gray-500">{selectedTransaction?.date}</p>
+              </div>
+            </div>
+
+            <div>
+              <p className="text-sm font-medium text-gray-700">Amount</p>
+              <p
+                className={`text-lg font-bold ${
+                  selectedTransaction?.amount < 0 ? "text-red-500" : "text-green-500"
+                }`}
+              >
+                {selectedTransaction?.amount < 0
+                  ? `-$${Math.abs(selectedTransaction?.amount)}`
+                  : `+$${selectedTransaction?.amount}`}
+              </p>
+            </div>
+
+            <div>
+              <p className="text-sm font-medium text-gray-700">Status</p>
+              <div
+                className={`flex items-center text-sm ${
+                  selectedTransaction?.status === "Success"
+                    ? "text-green-500"
+                    : "text-red-500"
+                }`}
+              >
+                {selectedTransaction?.status === "Success" ? (
+                  <Check className="mr-1 h-4 w-4" />
+                ) : (
+                  <X className="mr-1 h-4 w-4" />
+                )}
+                {selectedTransaction?.status}
+              </div>
+            </div>
+
+            <div>
+              <p className="text-sm font-medium text-gray-700">Details</p>
+              <p className="text-sm text-gray-600">
+                {selectedTransaction?.type === "credit"
+                  ? "Refund processed via App Store."
+                  : "Charged to your default payment method."}
+              </p>
+            </div>
+          </div>
+
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setSelectedTransaction(null)}>
+              Close
+            </Button>
+            {selectedTransaction?.status === "Failed" && (
+              <Button
+                onClick={() => alert(`Retry payment for ${selectedTransaction.name}`)}
+                className="bg-blue-500 text-white hover:bg-blue-600"
+              >
+                Retry Payment
+              </Button>
+            )}
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </Card>
   );
 }

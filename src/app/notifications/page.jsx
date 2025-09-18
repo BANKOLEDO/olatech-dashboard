@@ -179,7 +179,7 @@ export default function NotificationsPage() {
   };
 
   return (
-    <div className="max-w-full md:max-w-2xl mx-auto mt-6 p-4 bg-white rounded-xl shadow-lg border border-gray-200">
+    <div className="max-w-full md:max-w-3xl mx-auto mt-6 p-4 bg-white rounded-xl shadow-lg border border-gray-200">
       {/* Header + Filters */}
       <div className="flex items-center justify-between mb-4 flex-wrap gap-2">
         <h1 className="text-xl font-bold text-gray-800">Notifications</h1>

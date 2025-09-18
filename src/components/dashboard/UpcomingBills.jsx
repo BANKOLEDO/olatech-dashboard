@@ -3,8 +3,9 @@
 import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { ChevronRight, Plus } from "lucide-react";
+import { ChevronDown, Plus } from "lucide-react";
 import { Icon } from "@iconify/react";
+import { motion, AnimatePresence } from "framer-motion";
 
 // shadcn/ui bits for the modal + inputs
 import {
@@ -89,6 +90,7 @@ const initialBills = [
 export default function UpcomingBills() {
   const [showAll, setShowAll] = useState(false);
   const [bills, setBills] = useState(initialBills);
+  const [expandedBills, setExpandedBills] = useState([]);
 
   // modal state
   const [open, setOpen] = useState(false);
@@ -141,9 +143,11 @@ export default function UpcomingBills() {
           {visibleBills.map((bill) => (
             <div
               key={bill.id}
-              className="flex items-center justify-between space-x-4 rounded-lg border p-4"
+              className="flex flex-col gap-2 items-center justify-between space-x-4 rounded-lg border p-4 cursor-pointer"
+              onClick={() => setExpandedBills(prev => prev.includes(bill.id) ? prev.filter(id => id !== bill.id) : [...prev, bill.id])}
             >
-              <div className="flex items-center space-x-4">
+              <div className="w-full flex flex-row items-center justify-between">
+                <div className="flex items-center space-x-4">
                 <div className="w-8 h-8 flex items-center justify-center">
                   <Icon icon={bill.icon} width="28" height="28" />
                 </div>
@@ -157,8 +161,27 @@ export default function UpcomingBills() {
                   <p className="text-sm font-medium">${bill.amount}</p>
                   <p className="text-xs text-muted-foreground">{bill.status}</p>
                 </div>
-                <ChevronRight className="h-4 w-4 text-muted-foreground" />
+                <motion.div
+                  animate={{ rotate: expandedBills.includes(bill.id) ? 180 : 0 }}
+                  transition={{ duration: 0.2 }}
+                >
+                <ChevronDown className="h-4 w-4 text-muted-foreground" />
+                </motion.div>
               </div>
+              </div>
+              <AnimatePresence>
+                {expandedBills.includes(bill.id) && (
+                  <motion.div
+                    initial={{ opacity: 0, height: 0 }}
+                    animate={{ opacity: 1, height: "auto" }}
+                    exit={{ opacity: 0, height: 0 }}
+                    className="mt-2 p-2 bg-gray-50 rounded-md w-full"
+                  >
+                    <p className="text-sm">Reminder: Pay by {bill.date} to avoid late fees.</p>
+                    <Button size="sm" className="mt-2">Set Reminder</Button>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div>
           ))}
 
